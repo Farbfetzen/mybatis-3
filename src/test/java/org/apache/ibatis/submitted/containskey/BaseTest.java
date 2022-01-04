@@ -17,6 +17,7 @@ package org.apache.ibatis.submitted.containskey;
 
 import java.io.Reader;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.BaseDataTest;
@@ -68,7 +69,14 @@ class BaseTest {
   void shouldNotPrintIllegalReflectiveAccessWarning() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       Mapper mapper = sqlSession.getMapper(Mapper.class);
+
+      // Prints illegal reflective access warning:
       Map<String, Integer> conditions = Collections.singletonMap("id", 1);
+
+      // Does not print illegal reflective access warning:
+      // Map<String, Integer> conditions = new HashMap<>();
+      // conditions.put("id", 1);
+
       User user = mapper.findUser(conditions);
       Assertions.assertEquals("User1", user.getName());
     }
