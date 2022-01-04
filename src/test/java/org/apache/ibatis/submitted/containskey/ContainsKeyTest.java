@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class BaseTest {
+class ContainsKeyTest {
 
   private static SqlSessionFactory sqlSessionFactory;
 
@@ -43,26 +43,6 @@ class BaseTest {
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
             "org/apache/ibatis/submitted/containskey/CreateDB.sql");
-  }
-
-  @Test
-  void shouldGetAUser() {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      Mapper mapper = sqlSession.getMapper(Mapper.class);
-      User user = mapper.getUser(1);
-      Assertions.assertEquals("User1", user.getName());
-    }
-  }
-
-  @Test
-  void shouldInsertAUser() {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      Mapper mapper = sqlSession.getMapper(Mapper.class);
-      User user = new User();
-      user.setId(2);
-      user.setName("User2");
-      mapper.insertUser(user);
-    }
   }
 
   @Test

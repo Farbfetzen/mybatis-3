@@ -19,10 +19,6 @@ import java.util.Map;
 
 public interface Mapper {
 
-  User getUser(Integer id);
-
-  void insertUser(User user);
-
   User findUser(Map<String, Integer> conditions);
 
 }
